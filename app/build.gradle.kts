@@ -6,14 +6,14 @@ plugins {
 android {
     namespace = "com.example.pe.edu.upc.ferova_mobile_android"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 1
         }
     }
 
     defaultConfig {
         applicationId = "com.example.pe.edu.upc.ferova_mobile_android"
-        minSdk = 35
+        minSdk = 34
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
