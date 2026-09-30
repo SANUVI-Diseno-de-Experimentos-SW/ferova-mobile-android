@@ -29,6 +29,11 @@ import com.example.pe.edu.upc.ferova_mobile_android.data.local.TokenManager
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.AppointmentsRoutes
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.AppointmentsViewModel
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.screens.*
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.ConsultationsRoutes
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.screens.ChatScreen
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.screens.ConsultationsScreen
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.screens.MyConsultationsScreen
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.screens.NewConsultationScreen
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.NutritionalDiaryRoutes
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.NutritionalDiaryViewModel
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.screens.NewNutritionalMealScreen
