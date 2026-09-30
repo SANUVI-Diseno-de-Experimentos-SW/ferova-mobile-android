@@ -1,13 +1,16 @@
 package com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.screens
 
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -38,6 +41,7 @@ import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_dia
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.components.MealSearch
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.components.RegisterMealDialog
 import pe.edu.upc.ferovafamily.presentation.theme.CrimsonDark
+import androidx.compose.foundation.lazy.items
 
 private const val TAG = "NewNutritionalMeal"
 
@@ -151,7 +155,10 @@ fun NewNutritionalMealScreen(
                     MealCatalog(
                         viewModel = viewModel,
                         onMealClick = { foodItem ->
-                            Log.d(TAG, "👆 Click en alimento: ${foodItem.name} (ID: ${foodItem.foodItemId})")
+                            Log.d(
+                                TAG,
+                                "👆 Click en alimento: ${foodItem.name} (ID: ${foodItem.foodItemId})"
+                            )
                             selectedMeal = foodItem
                         }
                     )
@@ -214,55 +221,57 @@ fun NewNutritionalMealScreen(
                         }
 
                         else -> {
-                            Column(
+                            LazyColumn(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 24.dp)
+                                    .padding(horizontal = 24.dp),
+                                verticalArrangement = Arrangement.spacedBy(10.dp),
+                                contentPadding = PaddingValues(bottom = 24.dp)
                             ) {
-                                Text(
-                                    text = "Resultados (${foodItemsToDisplay.size})",
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color(0xFF1A1A1A),
-                                    modifier = Modifier.padding(bottom = 12.dp)
-                                )
-                                foodItemsToDisplay.forEach { foodItem ->
+                                item {
+                                    Text(
+                                        text = "Resultados (${foodItemsToDisplay.size})",
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF1A1A1A),
+                                        modifier = Modifier.padding(bottom = 12.dp)
+                                    )
+                                }
+                                items(foodItemsToDisplay) { foodItem ->
                                     FoodItemCard(
                                         foodItem = foodItem,
                                         onClickCard = {
-                                            Log.d(TAG, "👆 Click en resultado: ${it.name} (ID: ${it.foodItemId})")
                                             selectedMeal = it
                                         }
                                     )
-                                    Spacer(Modifier.height(10.dp))
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            selectedMeal?.let { item ->
-                Log.d(TAG, "📦 Abriendo diálogo para: ${item.name} (ID: ${item.foodItemId})")
-                LaunchedEffect(item.foodItemId) {
-                    viewModel.clearRegisterResult()
-                }
-                RegisterMealDialog(
-                    foodItem = item,
-                    patientId = patientId,
-                    viewModel = viewModel,
-                    onDismiss = {
-                        Log.d(TAG, "❌ Dialogo descartado")
-                        selectedMeal = null
-                        viewModel.clearWarning()
-                        viewModel.clearError()
+                selectedMeal?.let { item ->
+                    Log.d(TAG, "📦 Abriendo diálogo para: ${item.name} (ID: ${item.foodItemId})")
+                    LaunchedEffect(item.foodItemId) {
                         viewModel.clearRegisterResult()
-                    },
-                    onSuccess = {
-                        Log.d(TAG, "✅ Registro exitoso, cerrando pantalla")
-                        selectedMeal = null
-                        onRegisterSuccess()
                     }
-                )
+                    RegisterMealDialog(
+                        foodItem = item,
+                        patientId = patientId,
+                        viewModel = viewModel,
+                        onDismiss = {
+                            Log.d(TAG, "❌ Dialogo descartado")
+                            selectedMeal = null
+                            viewModel.clearWarning()
+                            viewModel.clearError()
+                            viewModel.clearRegisterResult()
+                        },
+                        onSuccess = {
+                            Log.d(TAG, "✅ Registro exitoso, cerrando pantalla")
+                            selectedMeal = null
+                            onRegisterSuccess()
+                        }
+                    )
+                }
             }
         }
     }
