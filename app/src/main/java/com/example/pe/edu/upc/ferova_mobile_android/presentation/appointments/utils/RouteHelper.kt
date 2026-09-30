@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Polyline
-import kotlin.collections.get
 
 data class RoutePoint(
     val latitude: Double,
@@ -23,7 +22,15 @@ data class RouteInfo(
 )
 
 class RouteHelper {
-    private val client = OkHttpClient()
+    private val client = OkHttpClient.Builder()
+        .addInterceptor { chain ->
+            chain.proceed(
+                chain.request().newBuilder()
+                    .header("User-Agent", "FerovaFamily/1.0 (tucorreo@upc.edu.pe)")
+                    .build()
+            )
+        }
+        .build()
     private val gson = Gson()
 
     suspend fun getRoute(start: GeoPoint, end: GeoPoint): RouteInfo? = withContext(Dispatchers.IO) {
@@ -34,16 +41,17 @@ class RouteHelper {
                 .url(url)
                 .build()
 
-            val response = client.newCall(request).execute()
-            val jsonString = response.body?.string()
-
-            if (response.isSuccessful && jsonString != null) {
-                parseRouteResponse(jsonString)
-            } else {
-                null
+            client.newCall(request).execute().use { response ->
+                val jsonString = response.body?.string()
+                if (response.isSuccessful && jsonString != null) {
+                    parseRouteResponse(jsonString)
+                } else {
+                    android.util.Log.w("RouteHelper", "OSRM respondió ${response.code}")
+                    null
+                }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            android.util.Log.e("RouteHelper", "Error obteniendo ruta", e)
             null
         }
     }

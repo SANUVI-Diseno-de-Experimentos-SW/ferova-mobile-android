@@ -1,27 +1,28 @@
-package pe.edu.upc.ferovafamily.presentation.home
+package com.example.pe.edu.upc.ferova_mobile_android.presentation.home
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pe.edu.upc.ferova_mobile_android.data.local.TokenManager
+import com.example.pe.edu.upc.ferova_mobile_android.data.remote.FerovaApiClient
+import com.example.pe.edu.upc.ferova_mobile_android.data.remote.api.AchievementApiService
+import com.example.pe.edu.upc.ferova_mobile_android.data.remote.api.NutritionalDiaryApiService
+import com.example.pe.edu.upc.ferova_mobile_android.data.remote.api.PatientApiService
+import com.example.pe.edu.upc.ferova_mobile_android.data.remote.api.TreatmentApiService
+import com.example.pe.edu.upc.ferova_mobile_android.data.repository.AchievementRepositoryImpl
+import com.example.pe.edu.upc.ferova_mobile_android.data.repository.NutritionalDiaryRepositoryImpl
+import com.example.pe.edu.upc.ferova_mobile_android.data.repository.TreatmentRepositoryImpl
+import com.example.pe.edu.upc.ferova_mobile_android.domain.model.TodayDose
+import com.example.pe.edu.upc.ferova_mobile_android.domain.repository.AchievementRepository
+import com.example.pe.edu.upc.ferova_mobile_android.domain.repository.NutritionalDiaryRepository
+import com.example.pe.edu.upc.ferova_mobile_android.domain.repository.TreatmentRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import pe.edu.upc.ferovafamily.data.local.TokenManager
-import pe.edu.upc.ferovafamily.data.remote.FerovaApiClient
-import pe.edu.upc.ferovafamily.data.remote.api.AchievementApiService
-import pe.edu.upc.ferovafamily.data.remote.api.NutritionalDiaryApiService
-import pe.edu.upc.ferovafamily.data.remote.api.PatientApiService
-import pe.edu.upc.ferovafamily.data.remote.api.TreatmentApiService
-import pe.edu.upc.ferovafamily.data.repository.AchievementRepositoryImpl
-import pe.edu.upc.ferovafamily.data.repository.NutritionalDiaryRepositoryImpl
-import pe.edu.upc.ferovafamily.data.repository.TreatmentRepositoryImpl
-import pe.edu.upc.ferovafamily.domain.model.TodayDose
-import pe.edu.upc.ferovafamily.domain.repository.AchievementRepository
-import pe.edu.upc.ferovafamily.domain.repository.NutritionalDiaryRepository
-import pe.edu.upc.ferovafamily.domain.repository.TreatmentRepository
 
 data class ChildInfo(
     val id: String,
@@ -175,7 +176,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 loadTodayDose(patientId)
                 loadAchievements(patientId)  // Recargar logros después de confirmar
-                kotlinx.coroutines.delay(3000)
+                delay(3000)
                 _uiState.update { it.copy(confirmDoseSuccess = false) }
             } catch (e: Exception) {
                 _uiState.update {

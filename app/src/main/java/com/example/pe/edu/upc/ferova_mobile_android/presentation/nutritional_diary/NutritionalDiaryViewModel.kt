@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pe.edu.upc.ferova_mobile_android.data.local.TokenManager
 import com.example.pe.edu.upc.ferova_mobile_android.data.mapper.toDomain
+import com.example.pe.edu.upc.ferova_mobile_android.data.mapper.toPatientDomain
 import com.example.pe.edu.upc.ferova_mobile_android.data.remote.FerovaApiClient
 import com.example.pe.edu.upc.ferova_mobile_android.data.remote.api.NutritionalDiaryApiService
 import com.example.pe.edu.upc.ferova_mobile_android.data.remote.api.PatientApiService
@@ -87,7 +88,7 @@ class NutritionalDiaryViewModel(
 
                 if (response.isSuccessful) {
                     val patientItems = response.body()?.patients?.map {
-                        it.toDomain()
+                        it.toPatientDomain()
                     } ?: emptyList()
 
                     Log.d(TAG, "loadPatients - Pacientes cargados: ${patientItems.size}")
@@ -131,7 +132,7 @@ class NutritionalDiaryViewModel(
 
                 if (response.isSuccessful) {
                     val patientItems = response.body()?.patients?.map {
-                        it.toDomain()
+                        it.toPatientDomain()
                     } ?: emptyList()
 
                     Log.d(TAG, "refreshPatients - Pacientes refrescados: ${patientItems.size}")

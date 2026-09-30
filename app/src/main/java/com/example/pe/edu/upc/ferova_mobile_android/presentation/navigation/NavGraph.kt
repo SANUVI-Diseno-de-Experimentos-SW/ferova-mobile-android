@@ -16,6 +16,7 @@ import com.example.pe.edu.upc.ferova_mobile_android.presentation.auth.LoginScree
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.main.MainRoutes
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.main.MainScreen
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.shared.*
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.treatment_tracking.TreatmentTrackingScreen
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers

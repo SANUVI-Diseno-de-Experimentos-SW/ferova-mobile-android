@@ -9,8 +9,8 @@ import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.lazy.items
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -68,23 +68,38 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pe.edu.upc.ferova_mobile_android.R
-import com.example.pe.edu.upc.ferova_mobile_android.domain.model.appointments.HealthCenter
-import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.AppointmentsViewModel
-import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.utils.RouteHelper
 import kotlinx.coroutines.launch
 import org.osmdroid.config.Configuration
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase
+import org.osmdroid.util.MapTileIndex
 import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
-
+import com.example.pe.edu.upc.ferova_mobile_android.R
+import com.example.pe.edu.upc.ferova_mobile_android.domain.model.appointments.HealthCenter
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.AppointmentsViewModel
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.utils.RouteHelper
 
 private val Crimson = Color(0xFF8B1A1A)
 private val SoftPink = Color(0xFFF9E8E8)
 private val SuccessGreen = Color(0xFF4CAF50)
+
+// Tiles de Esri World Street Map (sin API key)
+private val EsriStreet = object : OnlineTileSourceBase(
+    "EsriWorldStreet", 0, 19, 256, ".png",
+    arrayOf("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/"),
+    "© Esri"
+) {
+    // Esri usa el orden z/y/x (distinto al estándar z/x/y)
+    override fun getTileURLString(pMapTileIndex: Long): String {
+        return baseUrl +
+                MapTileIndex.getZoom(pMapTileIndex) + "/" +
+                MapTileIndex.getY(pMapTileIndex) + "/" +
+                MapTileIndex.getX(pMapTileIndex)
+    }
+}
 
 // Función para crear un Bitmap desde un Drawable
 private fun drawableToBitmap(drawable: Drawable, width: Int, height: Int): Bitmap {
@@ -179,16 +194,8 @@ private fun OSMMapView(
 
     AndroidView(
         factory = { context ->
-            Configuration.getInstance().apply {
-                load(
-                    context,
-                    context.getSharedPreferences("osmdroid", Context.MODE_PRIVATE)
-                )
-                userAgentValue = context.packageName
-            }
-
             MapView(context).apply {
-                setTileSource(TileSourceFactory.MAPNIK)
+                setTileSource(EsriStreet)
                 setMultiTouchControls(true)
                 isTilesScaledToDpi = true
                 controller.setZoom(15.0)
@@ -271,11 +278,6 @@ private fun OSMMapView(
         },
         modifier = modifier
     )
-}
-
-// Necesitamos agregar esta función a RouteHelper
-private fun RouteHelper.getRoutes(mapView: MapView): List<Polyline> {
-    return mapView.overlays.filterIsInstance<Polyline>()
 }
 
 // ── Pantalla principal ──────────────────────────────────────────

@@ -1,6 +1,7 @@
-package pe.edu.upc.ferovafamily.presentation.home
+package com.example.pe.edu.upc.ferova_mobile_android.presentation.home
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -14,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MedicalServices
@@ -34,7 +34,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import pe.edu.upc.ferovafamily.domain.model.TodayDose
+import com.example.pe.edu.upc.ferova_mobile_android.domain.model.TodayDose
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 private val Crimson = Color(0xFF8B1A1A)
 private val Cream = Color(0xFFFDF8F8)
@@ -230,7 +233,7 @@ private fun ChildrenRow(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Cream),
         shape = RoundedCornerShape(12.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, SoftPink)
+        border = BorderStroke(1.dp, SoftPink)
     ) {
         Row(
             modifier = Modifier
@@ -335,16 +338,16 @@ private fun DoseCard(
     val hasTreatment = todayDose != null
 
     // Obtener fecha actual formateada
-    val currentDate = java.time.LocalDate.now()
+    val currentDate = LocalDate.now()
     val formattedDate = currentDate.format(
-        java.time.format.DateTimeFormatter.ofPattern("EEEE d 'de' MMMM", java.util.Locale("es"))
+        DateTimeFormatter.ofPattern("EEEE d 'de' MMMM", Locale("es"))
     ).replaceFirstChar { it.uppercase() }
 
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Cream),
         shape = RoundedCornerShape(12.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, SoftPink)
+        border = BorderStroke(1.dp, SoftPink)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             // Cabecera
@@ -584,7 +587,7 @@ private fun AchievementMiniCard(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = Cream),
             shape = RoundedCornerShape(12.dp),
-            border = androidx.compose.foundation.BorderStroke(1.dp, SoftPink)
+            border = BorderStroke(1.dp, SoftPink)
         ) {
             Column(modifier = Modifier.padding(12.dp)) {
                 Text(
@@ -655,7 +658,7 @@ private fun NutritionMiniCard(ironAbsorbed: Double, modifier: Modifier = Modifie
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = Cream),
             shape = RoundedCornerShape(12.dp),
-            border = androidx.compose.foundation.BorderStroke(1.dp, SoftPink)
+            border = BorderStroke(1.dp, SoftPink)
         ) {
             Column(modifier = Modifier.padding(12.dp)) {
                 Text(
@@ -667,7 +670,7 @@ private fun NutritionMiniCard(ironAbsorbed: Double, modifier: Modifier = Modifie
                 Spacer(Modifier.height(8.dp))
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(
-                        text = String.format(java.util.Locale.US, "%.2f", ironAbsorbed),
+                        text = String.format(Locale.US, "%.2f", ironAbsorbed),
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.DarkGray

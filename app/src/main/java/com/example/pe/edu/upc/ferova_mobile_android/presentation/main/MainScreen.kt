@@ -34,6 +34,7 @@ import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.s
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.screens.ConsultationsScreen
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.screens.MyConsultationsScreen
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.consultations.screens.NewConsultationScreen
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.home.HomeScreen
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.NutritionalDiaryRoutes
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.NutritionalDiaryViewModel
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.screens.NewNutritionalMealScreen

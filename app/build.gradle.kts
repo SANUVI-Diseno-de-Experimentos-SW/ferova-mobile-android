@@ -15,12 +15,13 @@ plugins {
 
 android {
     namespace = "com.example.pe.edu.upc.ferova_mobile_android"
-    compileSdk = 37
+    compileSdk = 35
 
     defaultConfig {
+        manifestPlaceholders["MAPS_API_KEY"] = localProperties.getProperty("MAPS_API_KEY", "")
         applicationId = "com.example.pe.edu.upc.ferova_mobile_android"
-        minSdk = 34
-        targetSdk = 36
+        minSdk = 26
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -102,7 +103,4 @@ dependencies {
     // Para hacer peticiones HTTP a la API de rutas
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.google.code.gson:gson:2.10.1")
-
-    // Para polylines en el mapa (dibujar la ruta)
-    implementation("org.osmdroid:osmdroid-android:6.1.17")
 }
