@@ -1,0 +1,34 @@
+package com.example.pe.edu.upc.ferova_mobile_android.presentation.navigation
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+object LoginRoute
+
+@Serializable
+object CreateAccountRoute
+
+@Serializable
+object HomeRoute
+
+// Shared
+@Serializable
+object RecoveryPasswordRoute
+
+@Serializable
+object VerificationRoute
+
+@Serializable
+object TreatmentTrackingRoute
+
+@Serializable
+object NewPasswordRoute
+
+@Serializable
+object AyudaRoute
+
+@Serializable
+object SeguridadRoute
+
+@Serializable
+object PrivacidadRoute
