@@ -26,6 +26,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pe.edu.upc.ferova_mobile_android.data.local.TokenManager
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.AppointmentsRoutes
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.AppointmentsViewModel
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.appointments.screens.*
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.NutritionalDiaryRoutes
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.NutritionalDiaryViewModel
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.screens.NewNutritionalMealScreen
