@@ -26,6 +26,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pe.edu.upc.ferova_mobile_android.data.local.TokenManager
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.patient_management.PatientManagementRoutes
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.patient_management.screens.CreatePatientScreen
 
 
 private val Crimson = Color(0xFF8B1A1A)
