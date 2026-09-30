@@ -4,7 +4,7 @@ import com.example.pe.edu.upc.ferova_mobile_android.data.remote.dto.PatientRespo
 import com.example.pe.edu.upc.ferova_mobile_android.domain.model.Patient
 
 
-fun PatientResponse.toDomain(): Patient = Patient(
+fun PatientResponse.toPatientDomain(): Patient = Patient(
     id        = id,
     name      = name,
     lastName  = lastName   ?: "",
