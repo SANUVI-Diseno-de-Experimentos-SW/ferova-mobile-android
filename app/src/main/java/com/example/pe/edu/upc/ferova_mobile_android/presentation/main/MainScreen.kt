@@ -36,6 +36,9 @@ import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_dia
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.nutritional_diary.screens.NutritionalHistoryScreen
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.patient_management.PatientManagementRoutes
 import com.example.pe.edu.upc.ferova_mobile_android.presentation.patient_management.screens.CreatePatientScreen
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.progress.ProgressRoutes
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.progress.screens.ProgressScreen
+import com.example.pe.edu.upc.ferova_mobile_android.presentation.progress.screens.StreakLostScreen
 
 
 private val Crimson = Color(0xFF8B1A1A)
