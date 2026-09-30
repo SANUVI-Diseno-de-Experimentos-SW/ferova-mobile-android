@@ -1,7 +1,6 @@
 package com.example.pe.edu.upc.ferova_mobile_android.data.repository
-
 import android.util.Log
-import com.example.pe.edu.upc.ferova_mobile_android.data.mapper.toDomain
+import com.example.pe.edu.upc.ferova_mobile_android.data.mapper.toPatientDomain
 import com.example.pe.edu.upc.ferova_mobile_android.data.remote.api.PatientApiService
 import com.example.pe.edu.upc.ferova_mobile_android.data.remote.dto.RegisterPatientRequest
 import com.example.pe.edu.upc.ferova_mobile_android.domain.model.HemoglobinRecord
@@ -23,7 +22,7 @@ class PatientRepositoryImpl(
             val response = service.getMyPatients()
             if (response.isSuccessful) {
                 // El backend devuelve { motherId, patients: [{id, name}] }
-                response.body()?.patients?.map { it.toDomain() } ?: emptyList()
+                response.body()?.patients?.map { it.toPatientDomain() } ?: emptyList()
             } else emptyList()
         } catch (_: Exception) { emptyList() }
     }
